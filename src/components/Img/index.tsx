@@ -1,10 +1,10 @@
 /**
  *
- * Img.ts
+ * Img.tsx
  *
  * Renders an image, enforcing the usage of the alt="" tag
  */
- import React from 'react';
+import React from 'react';
 
 /**
  * @ignore
