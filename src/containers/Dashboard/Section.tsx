@@ -6,6 +6,6 @@
  */
 import React from 'react';
 
-export default function Section() {
-  return <div className="App-section">{/* ...contents... */}</div>;
+export default function Section(props: any) {
+  return <div className="App-section">{props.children}</div>;
 }
