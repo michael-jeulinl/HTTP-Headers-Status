@@ -146,6 +146,11 @@ table thead tr {
   vertical-align: baseline;
 }
 
+.App-button:disabled,
+.App-button[disabled]{
+  background-color: red;
+}
+
 .App-button:active {
   background: black;
   color: #fff;

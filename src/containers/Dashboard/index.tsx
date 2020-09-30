@@ -3,7 +3,8 @@
  *
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { RouteProps } from 'react-router';
 
 // Components
 import Button from '../../components/Button';
@@ -11,18 +12,31 @@ import H1 from '../../components/H1';
 import HistoryTable from '../../components/HistoryTable';
 import Section from './Section';
 
+// Helpers
+import utils from '../../utils';
 
-export default function Dashboard() {
+export default function Dashboard(props: RouteProps) {
   const [url, setUrl] = useState('');
+
+  // When url param path is specified, submit the form to run service status on load
+  useEffect(() => {
+    if (props.location) {
+      const urlSearch: any = new URLSearchParams(props.location.search);
+      const curUrl: string = urlSearch.get('url') || ' ';
+      if (utils.isURL(curUrl)) alert("You are submitting " + curUrl);
+    }
+  }, []);
 
   const onAddUrl = (e: React.MouseEvent<any>) => {
     e.preventDefault();
     alert("You are submitting " + url);
   }
 
+  // Validate url
   const onChangeUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Set null url if not valid
-    setUrl(e.target.value);
+    const isValidUrl: Boolean = utils.isURL(e.target.value);
+    if (isValidUrl) setUrl(e.target.value);
+    else setUrl('');
   }
 
   return (
@@ -36,7 +50,7 @@ export default function Dashboard() {
                     onChange={onChangeUrl} />
           </label>
 
-          <Button label="LAUNCH ANALYSIS" onClick={onAddUrl} />
+          <Button label="LAUNCH ANALYSIS" onClick={onAddUrl} disabled={!url}/>
         </form>
       </Section>
 

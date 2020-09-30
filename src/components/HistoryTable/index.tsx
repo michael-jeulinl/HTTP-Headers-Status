@@ -4,6 +4,7 @@ import { useTable } from 'react-table';
 import columns from './columns';
 
 export default function HistoryTable() {
+  // Dump data
   let data: Array<any> = [];
 
   const {
