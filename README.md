@@ -1,6 +1,9 @@
 # HTTP-Headers-Status
 Quick React application that allows to visualize and debug custom HTTP headers.
 
+![screenshot](https://github.com/michael-jeulinl/HTTP-Headers-Status/blob/master/screenshot.png?raw=true)
+
+
 ## Features
 HTTP responses sent by some service provider contain special headers:
 1. receive general header information as `status`, `powered by`, `server engine`
