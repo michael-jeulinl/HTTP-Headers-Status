@@ -3,8 +3,11 @@
  *
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { RouteProps } from 'react-router';
+import axios, { AxiosPromise } from 'axios';
+import reducer, { State } from './reducer';
+import utils from '../../utils';
 
 // Components
 import Button from '../../components/Button';
@@ -12,24 +15,39 @@ import H1 from '../../components/H1';
 import HistoryTable from '../../components/HistoryTable';
 import Section from './Section';
 
-// Helpers
-import utils from '../../utils';
+const APIURL = '/api/getHeader?url='; // todo use a config file
+const initialState: State[] = [];
+let reqId = 0; // BUG IN CASE OF LOCALSTORAGE USE (reqID conflicts --> todo fix)
 
 export default function Dashboard(props: RouteProps) {
   const [url, setUrl] = useState('');
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  // Retrieve HTTP Header using axios
+  const getHeader = async (uri: string) => {
+    let curId = reqId++;
+    dispatch({ reqId: curId, type: 'PENDING' });
+    try {
+      const axiosPromise: AxiosPromise<any> = axios.get(window.location.origin + APIURL + uri);
+      const result = await axiosPromise;
+      dispatch({ reqId: curId, type: 'SUCCESS', payload: result.data });
+    } catch (error) {
+      dispatch({ reqId: curId, type: 'ERROR' });
+    }
+  };
 
   // When url param path is specified, submit the form to run service status on load
   useEffect(() => {
     if (props.location) {
       const urlSearch: any = new URLSearchParams(props.location.search);
       const curUrl: string = urlSearch.get('url') || ' ';
-      if (utils.isURL(curUrl)) alert("You are submitting " + curUrl);
+      if (utils.isURL(curUrl)) getHeader(curUrl);
     }
   }, []);
 
   const onAddUrl = (e: React.MouseEvent<any>) => {
     e.preventDefault();
-    alert("You are submitting " + url);
+    getHeader(url);
   }
 
   // Validate url

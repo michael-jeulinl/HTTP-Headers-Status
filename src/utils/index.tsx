@@ -1,4 +1,19 @@
 /**
+ * Return the current date
+ *
+ * @return String data formatted as DD//MM/YY
+ */
+export function getCurDate(): string {
+  const ts = Date.now();
+  const dateObj = new Date(ts);
+  const date = (dateObj.getDate() < 10 ? '0' : '') + dateObj.getDate();
+  const month = (dateObj.getMonth() < 10 ? '0' : '') + dateObj.getMonth();
+  const year = dateObj.getFullYear();
+
+  return `${date}/${month}/${year}`;
+};
+
+/**
  * Regex to check if http/https url.
  *
  * @todo would use external lib instead.
@@ -9,7 +24,6 @@ const isURL = (url: string): Boolean => {
   const regex = new RegExp(expression);
   return (url.match(regex) ? true : false);
 };
-
 
 export default {
   isURL,
