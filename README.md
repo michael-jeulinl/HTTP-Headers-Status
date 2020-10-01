@@ -25,7 +25,7 @@ HTTP responses sent by some service provider contain special headers:
 4.  Run `npm run-script build` in order to build the app
 5.  _At this point you can run `npm start` to see the example app at `http://localhost:3000`.
 
-## Quick start
+## Testing
 1. Run `npm test` in order to launch all the tests.
 
 ## Documentation
