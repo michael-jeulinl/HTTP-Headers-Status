@@ -1,32 +1,46 @@
 /*
  * History data headers definition
  */
-import { Column } from 'react-table';
+/**
+ * @ignore
+ */
+interface IPair {
+  header: string,
+  accessor: string
+}
 
-const columns:Array<Column> = [
+const columns:IPair[] = [
   {
-    Header: 'Date',
-    accessor: 'date',
+    header: 'Date',
+    accessor: 'reqDate',
   },
   {
-    Header: 'Url',
-    accessor: 'url'
+    header: 'Url',
+    accessor: 'reqUrl'
   },
   {
-    Header: 'Status',
-    accessor: 'statusIcon',
+    header: 'Status',
+    accessor: 'statusCode',
   },
   {
-    Header: 'Flags',
-    accessor: 'flags',
+    header: 'Power By',
+    accessor: 'poweredBy',
   },
   {
-    Header: 'Cloudfront status',
-    accessor: 'frontStatus',
+    header: 'Server Type',
+    accessor: 'serverType',
   },
   {
-    Header: 'Cloudfront pop',
+    header: 'Security',
+    accessor: 'secure',
+  },
+  {
+    header: 'Cache status',
     accessor: 'cloudfrontPOP',
+  },
+  {
+    header: 'AWS Origin',
+    accessor: 'awsOrigin',
   }
 ];
 

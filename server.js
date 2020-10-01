@@ -18,12 +18,9 @@ app.get('/api/getHeader', (req, res, next) => {
     return res.status(400).send({ error: 'only ?url=valid_url accepted' });
   }
 
-  try {
-    const promise = axios.head(url);
-    promise.then(result => { return res.json(utils.decode(result)); });
-  } catch (error) {
-    return res.status(500).send({ error });
-  }
+  const promise = axios.head(url);
+  promise.then(result => { return res.json(utils.decode(result)); })
+    .catch(() => { return res.json({ statusCode: '404' })});
 });
 
 app.get('*', (req, res) => {

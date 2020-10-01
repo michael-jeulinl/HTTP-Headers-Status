@@ -17,16 +17,16 @@ import Section from './Section';
 
 const APIURL = '/api/getHeader?url='; // todo use a config file
 const initialState: State[] = [];
-let reqId = 0; // BUG IN CASE OF LOCALSTORAGE USE (reqID conflicts --> todo fix)
+let reqId = 0; // Todo --> use crypto rand instead
 
 export default function Dashboard(props: RouteProps) {
   const [url, setUrl] = useState('');
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [analysis, dispatch] = useReducer(reducer, initialState);
 
   // Retrieve HTTP Header using axios
   const getHeader = async (uri: string) => {
     let curId = reqId++;
-    dispatch({ reqId: curId, type: 'PENDING' });
+    dispatch({ reqId: curId, reqUrl: uri, type: 'PENDING' });
     try {
       const axiosPromise: AxiosPromise<any> = axios.get(window.location.origin + APIURL + uri);
       const result = await axiosPromise;
@@ -39,7 +39,7 @@ export default function Dashboard(props: RouteProps) {
   // When url param path is specified, submit the form to run service status on load
   useEffect(() => {
     if (props.location) {
-      const urlSearch: any = new URLSearchParams(props.location.search);
+      const urlSearch: any = new URLSearchParams(props.location!.search);
       const curUrl: string = urlSearch.get('url') || ' ';
       if (utils.isURL(curUrl)) getHeader(curUrl);
     }
@@ -74,7 +74,7 @@ export default function Dashboard(props: RouteProps) {
 
       <Section>
         <H1>HISTORY</H1>
-        <HistoryTable />
+        <HistoryTable {...analysis} />
       </Section>
     </article>
   );

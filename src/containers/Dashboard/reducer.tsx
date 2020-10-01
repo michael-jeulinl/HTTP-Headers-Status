@@ -9,13 +9,14 @@
 import { getCurDate } from '../../utils';
 
 export type Action =
-    { type: 'PENDING'; reqId: number }
+    { type: 'PENDING'; reqId: number, reqUrl: string }
   | { type: 'SUCCESS'; reqId: number; payload: any }
   | { type: 'ERROR'; reqId: number  };
 
 export interface State {
   reqId: number;
   reqDate: string;
+  reqUrl: string;
   isLoading: boolean;
   isError: boolean;
   data?: any;
@@ -29,6 +30,7 @@ const reqReducer = (state: State[], action: Action): State[] => {
         {
           reqId: action.reqId,
           reqDate: getCurDate(),
+          reqUrl: action.reqUrl,
           isLoading: true,
           isError: false
         }
