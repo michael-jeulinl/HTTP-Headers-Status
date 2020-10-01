@@ -4,7 +4,7 @@ import { IProps } from './index';
 export default function Row(props: IProps) {
   if (props.isLoading) {
     return (
-      <tr>
+      <tr key={props.reqId}>
         <td>{props.reqDate}</td>
         <td>{props.reqUrl}</td>
         <td>loading...</td>
@@ -12,7 +12,7 @@ export default function Row(props: IProps) {
     );
   } else if (props.isError) {
     return (
-      <tr>
+      <tr key={props.reqId}>
         <td>{props.reqDate}</td>
         <td>{props.reqUrl}</td>
         <td>error</td>
@@ -21,7 +21,7 @@ export default function Row(props: IProps) {
   }
 
   return (
-    <tr>
+    <tr key={props.reqId}>
       <td>{props.reqDate}</td>
       <td>{props.reqUrl}</td>
       <td>{props.data?.statusCode}</td>

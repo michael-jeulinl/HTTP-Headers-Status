@@ -9,12 +9,12 @@
 import { getCurDate } from '../../utils';
 
 export type Action =
-    { type: 'PENDING'; reqId: number, reqUrl: string }
-  | { type: 'SUCCESS'; reqId: number; payload: any }
-  | { type: 'ERROR'; reqId: number  };
+    { type: 'PENDING'; reqId: string, reqUrl: string }
+  | { type: 'SUCCESS'; reqId: string; payload: any }
+  | { type: 'ERROR'; reqId: string  };
 
 export interface State {
-  reqId: number;
+  reqId: string;
   reqDate: string;
   reqUrl: string;
   isLoading: boolean;

@@ -18,7 +18,7 @@ interface IData {
  * @ignore
  */
 export interface IProps {
-  reqId: number;
+  reqId: string;
   reqDate: string;
   reqUrl: string;
   isLoading: boolean;

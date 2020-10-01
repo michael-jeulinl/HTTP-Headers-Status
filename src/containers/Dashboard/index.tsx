@@ -17,7 +17,6 @@ import Section from './Section';
 
 const APIURL = '/api/getHeader?url='; // todo use a config file
 const initialState: State[] = [];
-let reqId = 0; // Todo --> use crypto rand instead
 
 export default function Dashboard(props: RouteProps) {
   const [url, setUrl] = useState('');
@@ -25,7 +24,7 @@ export default function Dashboard(props: RouteProps) {
 
   // Retrieve HTTP Header using axios
   const getHeader = async (uri: string) => {
-    let curId = reqId++;
+    let curId = Math.random().toString(36).substring(7);
     dispatch({ reqId: curId, reqUrl: uri, type: 'PENDING' });
     try {
       const axiosPromise: AxiosPromise<any> = axios.get(window.location.origin + APIURL + uri);
